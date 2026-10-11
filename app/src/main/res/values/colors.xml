@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="friday_primary">#3B4CCA</color>
+    <color name="friday_primary_dark">#232B7A</color>
+    <color name="friday_accent">#7C5CFF</color>
+    <color name="friday_bg">#F7F7FB</color>
+    <color name="friday_panel">#ECECFB</color>
+</resources>

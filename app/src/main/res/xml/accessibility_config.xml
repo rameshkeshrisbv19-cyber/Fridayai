@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  v2 changes (WhatsApp auto-typing):
+   * flagIncludeNotImportantViews added - WhatsApp marks several of the nodes
+     Friday must touch (search row, message box container) as "not important
+     for accessibility", so they were invisible to the old service.
+   * flagReportViewIds keeps giving us real view ids (id/entry, id/search),
+     which is what Friday now uses to pick the RIGHT text field.
+   * flagRetrieveInteractiveWindows lets Friday read the WhatsApp window even
+     while Friday's own floating panel is on screen.
+-->
+<accessibility-service xmlns:android="http://schemas.android.com/apk/res/android"
+    android:accessibilityEventTypes="typeAllMask"
+    android:accessibilityFeedbackType="feedbackGeneric"
+    android:accessibilityFlags="flagDefault|flagReportViewIds|flagRetrieveInteractiveWindows|flagIncludeNotImportantViews"
+    android:canRetrieveWindowContent="true"
+    android:canPerformGestures="true"
+    android:notificationTimeout="100"
+    android:description="@string/accessibility_desc"/>

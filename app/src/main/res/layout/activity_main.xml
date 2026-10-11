@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <TextView
+            android:id="@+id/titleText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Friday AI"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            android:textColor="#232B7A"/>
+
+        <TextView
+            android:id="@+id/bossText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="4dp"
+            android:text="Ramesh sir is the boss of the Friday. Friday serves Rishabh sir."
+            android:textSize="14sp"
+            android:textColor="#444B8C"/>
+
+        <TextView
+            android:id="@+id/statusText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:padding="12dp"
+            android:background="#ECECFB"
+            android:text="Checking permissions…"
+            android:textSize="14sp"
+            android:textColor="#222222"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="1. PERMISSIONS (tap in order)"
+            android:textStyle="bold"
+            android:textSize="15sp"/>
+
+        <Button
+            android:id="@+id/btnMic"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Grant microphone + notifications"/>
+
+        <Button
+            android:id="@+id/btnOverlay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Allow floating bubble (Display over apps)"/>
+
+        <Button
+            android:id="@+id/btnAccessibility"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Enable Friday in Accessibility (god controls)"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="2. START FRIDAY"
+            android:textStyle="bold"
+            android:textSize="15sp"/>
+
+        <Button
+            android:id="@+id/btnListening"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Start &quot;Hey Friday&quot; listening"/>
+
+        <Button
+            android:id="@+id/btnBubble"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Show floating bubble on screen"/>
+
+        <Button
+            android:id="@+id/btnTest"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Test Friday now"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="3. AI BRAIN (optional – for writing ~1000-char notes)"
+            android:textStyle="bold"
+            android:textSize="15sp"/>
+
+        <EditText
+            android:id="@+id/apiKeyEdit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:hint="LLM API key (OpenAI-compatible)"
+            android:inputType="textPassword"/>
+
+        <EditText
+            android:id="@+id/baseUrlEdit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="API base URL"/>
+
+        <EditText
+            android:id="@+id/modelEdit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Model name"/>
+
+        <EditText
+            android:id="@+id/contactEdit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Default WhatsApp contact (e.g. Rishika)"/>
+
+        <Button
+            android:id="@+id/btnSave"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Save AI settings"/>
+
+        <TextView
+            android:id="@+id/logText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:padding="12dp"
+            android:background="#EFEFEF"
+            android:textSize="12sp"
+            android:textColor="#333333"
+            android:text="Log will appear here."/>
+    </LinearLayout>
+</ScrollView>

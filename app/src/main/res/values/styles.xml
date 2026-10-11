@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.Friday" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:colorPrimary">#3B4CCA</item>
+        <item name="android:colorPrimaryDark">#232B7A</item>
+        <item name="android:colorAccent">#7C5CFF</item>
+        <item name="android:windowBackground">#F7F7FB</item>
+    </style>
+</resources>

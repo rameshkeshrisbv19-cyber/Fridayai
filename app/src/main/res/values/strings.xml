@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Friday AI</string>
+    <string name="accessibility_desc">Friday AI needs this to open apps, type text and press buttons for Rishabh sir. It is the control core of Friday.</string>
+</resources>
