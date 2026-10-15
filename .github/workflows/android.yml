@@ -1,10 +1,10 @@
 name: Build FridayAI Debug APK
 
-# You do NOT need a personal access token for this. GitHub builds the APK on
-# its own runners with a temporary token it issues itself for every run.
+# You do NOT need a personal access token. GitHub builds the APK on its own
+# runners using a temporary GITHUB_TOKEN that GitHub issues itself every run.
 
 on:
-  workflow_dispatch:        # "Run workflow" button in the Actions tab
+  workflow_dispatch:        # the "Run workflow" button in the Actions tab
   push:
     branches: [ main, master ]
 
@@ -18,7 +18,7 @@ jobs:
       - name: Checkout your repo
         uses: actions/checkout@v4
 
-      - name: Set up JDK 17 (Android Gradle Plugin 8.x requirement)
+      - name: Set up JDK 17 (Android Gradle Plugin 8.x requires it)
         uses: actions/setup-java@v4
         with:
           distribution: temurin
@@ -29,7 +29,7 @@ jobs:
         with:
           gradle-version: '8.5'
 
-      - name: Find the Gradle project (works whether it is at the repo root or in a subfolder)
+      - name: Find the Gradle project
         id: proj
         run: |
           if [ -f settings.gradle ]; then
@@ -42,7 +42,7 @@ jobs:
           echo "dir=$DIR" >> "$GITHUB_OUTPUT"
           echo "Gradle project directory: $DIR"
 
-      - name: Point Gradle at the preinstalled Android SDK and accept licences
+      - name: Point Gradle at the Android SDK and accept licences
         run: |
           SDK="${ANDROID_HOME:-${ANDROID_SDK_ROOT:-/usr/local/lib/android/sdk}}"
           echo "sdk.dir=$SDK" > "${{ steps.proj.outputs.dir }}/local.properties"
@@ -51,15 +51,15 @@ jobs:
           fi
           echo "Using Android SDK at $SDK"
 
-      - name: Build debug APK
+      - name: Build the debug APK
         working-directory: ${{ steps.proj.outputs.dir }}
         run: gradle assembleDebug --no-daemon --stacktrace
 
-      - name: Show what was built
+      - name: Show the APK that was built
         working-directory: ${{ steps.proj.outputs.dir }}
         run: ls -la app/build/outputs/apk/debug/
 
-      - name: Upload APK as a downloadable artifact
+      - name: Upload the APK so you can download it
         uses: actions/upload-artifact@v4
         with:
           name: FridayAI-debug-apk
@@ -68,13 +68,18 @@ jobs:
           retention-days: 30
 
   # ---------------------------------------------------------------------------
-  # Optional: a properly SIGNED release APK.
-  # It runs only when you have added these four repository secrets:
-  #   KEYSTORE_BASE64, KEYSTORE_PASSWORD, KEY_ALIAS, KEY_PASSWORD
-  # Without them the job simply skips, and the debug APK above is all you need.
+  # OPTIONAL signed release APK.
+  # It is skipped unless you switch it on with a repository VARIABLE (not a
+  # secret):
+  #   Settings -> Secrets and variables -> Actions -> Variables -> New variable
+  #   Name: ENABLE_RELEASE_BUILD   Value: true
+  # and add the four secrets KEYSTORE_BASE64, KEYSTORE_PASSWORD, KEY_ALIAS,
+  # KEY_PASSWORD. Forgetting all of this changes nothing - you still get the
+  # debug APK from the job above.
   # ---------------------------------------------------------------------------
   build-release:
     name: Build signed release APK (optional)
+    if: ${{ vars.ENABLE_RELEASE_BUILD == 'true' }}
     runs-on: ubuntu-latest
     timeout-minutes: 30
 
@@ -105,7 +110,7 @@ jobs:
           fi
           echo "dir=$DIR" >> "$GITHUB_OUTPUT"
 
-      - name: Point Gradle at the preinstalled Android SDK and accept licences
+      - name: Point Gradle at the Android SDK and accept licences
         run: |
           SDK="${ANDROID_HOME:-${ANDROID_SDK_ROOT:-/usr/local/lib/android/sdk}}"
           echo "sdk.dir=$SDK" > "${{ steps.proj.outputs.dir }}/local.properties"
@@ -114,13 +119,11 @@ jobs:
           fi
 
       - name: Restore your signing keystore
-        if: ${{ secrets.KEYSTORE_BASE64 != '' }}
         env:
           KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
         run: echo "$KEYSTORE_BASE64" | base64 -d > "$RUNNER_TEMP/friday.jks"
 
       - name: Build signed release APK
-        if: ${{ secrets.KEYSTORE_BASE64 != '' }}
         working-directory: ${{ steps.proj.outputs.dir }}
         env:
           FRIDAY_STORE_FILE: ${{ runner.temp }}/friday.jks
@@ -130,7 +133,6 @@ jobs:
         run: gradle assembleRelease --no-daemon --stacktrace
 
       - name: Upload signed release APK
-        if: ${{ secrets.KEYSTORE_BASE64 != '' }}
         uses: actions/upload-artifact@v4
         with:
           name: FridayAI-release-apk
